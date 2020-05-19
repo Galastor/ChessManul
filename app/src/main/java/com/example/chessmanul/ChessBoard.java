@@ -1,7 +1,11 @@
 package com.example.chessmanul;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class ChessBoard extends RelativeLayout {
     boolean whitesMove = true;
@@ -39,6 +43,16 @@ public class ChessBoard extends RelativeLayout {
     public void makeMove(ChessSquare startSquare, ChessSquare endSquare) {
         if (checkMove(startSquare, endSquare)) {
             startSquare.piece.move(this, startSquare, endSquare);
+            if (endSquare.h == 1 || endSquare.h == 8) {
+                if (endSquare.piece instanceof Pound) {
+                    PieceSelectDialog dlg = new PieceSelectDialog();
+                    dlg.white = whitesMove;
+                    dlg.board = this;
+                    dlg.square = endSquare;
+                    AppCompatActivity activity = (AppCompatActivity) getContext();
+                    dlg.show(activity.getSupportFragmentManager(),"");
+                }
+            }
             whitesMove = !whitesMove;
             lastMovedPiece = endSquare.piece;
         }
@@ -51,7 +65,6 @@ public class ChessBoard extends RelativeLayout {
             return null;
         }
     }
-
 
     public void startPosition() {
         for (int i = 0; i < 8; i++) {

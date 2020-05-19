@@ -13,11 +13,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements OnTouchListener {
-    int max_width, max_high;
     int a = 120;
     ChessSquare selectedSquare;
     ChessBoard board;
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
