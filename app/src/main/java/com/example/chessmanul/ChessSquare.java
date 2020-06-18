@@ -24,9 +24,9 @@ public class ChessSquare extends androidx.appcompat.widget.AppCompatImageView {
         }
     }
 
-    public void setDefaultBackground(){
+    public void setDefaultBackground() {
         if ((h + v) % 2 == 0) {
-            setBackgroundColor(Color.rgb(255,236,179));
+            setBackgroundColor(Color.rgb(255, 236, 179));
         } else {
             setBackgroundColor(Color.DKGRAY);
         }

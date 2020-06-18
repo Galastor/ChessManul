@@ -1,5 +1,6 @@
 package com.example.chessmanul;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
@@ -21,7 +25,13 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        board = new ChessBoard(this);
+        setContentView(R.layout.activity_main);
+        //Анимация при входе в приложение
+        ImageView imageView = findViewById(R.id.imageView);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade);
+        imageView.startAnimation(animation);
+
+        /*board = new ChessBoard(this);
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -34,8 +44,29 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
         }
 
         board.startPosition();
+        setContentView(board);*/
 
-        setContentView(board);
+        Thread timer = new Thread(){
+
+            @Override
+            public void run() {
+                try {
+                    sleep(5000);
+                    System.out.println("1");
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                    super.run();
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        };
+
+        timer.start();
+
     }
 
     @Override

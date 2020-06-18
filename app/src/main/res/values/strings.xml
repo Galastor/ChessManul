@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Chess Manul</string>
+    <string name="app_name">ChessManul</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Chess Manul</string>
+    <string name="nav_header_subtitle">chessmanul@outlook.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Управление</string>
+
+    <string name="menu_home">Важное!</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Играть</string>
+    <string name="menu_tools">Настройка</string>
+    <string name="menu_share">Поделиться</string>
+    <string name="menu_send">Отправить</string>
 </resources>

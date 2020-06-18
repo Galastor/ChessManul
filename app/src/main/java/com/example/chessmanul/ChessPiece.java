@@ -3,7 +3,7 @@ package com.example.chessmanul;
 import android.graphics.drawable.Drawable;
 
 public abstract class ChessPiece {
-    protected boolean isWhite;
+    public boolean isWhite;
 
     abstract boolean checkMove(ChessBoard board, ChessSquare startSquare, ChessSquare endSquare);
 

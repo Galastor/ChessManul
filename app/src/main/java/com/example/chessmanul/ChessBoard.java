@@ -3,12 +3,13 @@ package com.example.chessmanul;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 public class ChessBoard extends RelativeLayout {
-    boolean whitesMove = true;
+    public boolean whitesMove = true;
     public ChessPiece lastMovedPiece = null;
     public ChessSquare[][] board = new ChessSquare[8][8];
 
@@ -50,11 +51,20 @@ public class ChessBoard extends RelativeLayout {
                     dlg.board = this;
                     dlg.square = endSquare;
                     AppCompatActivity activity = (AppCompatActivity) getContext();
-                    dlg.show(activity.getSupportFragmentManager(),"");
+                    dlg.show(activity.getSupportFragmentManager(), "");
                 }
             }
             whitesMove = !whitesMove;
             lastMovedPiece = endSquare.piece;
+            if (checkCheck(whitesMove)) {
+                String s;
+                if (checkMate(whitesMove)) {
+                    s = "Mate!";
+                } else {
+                    s = "Check!";
+                }
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -67,6 +77,12 @@ public class ChessBoard extends RelativeLayout {
     }
 
     public void startPosition() {
+        whitesMove = true;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                getSquare(i + 1, j + 1).setPiece(null);
+            }
+        }
         for (int i = 0; i < 8; i++) {
             getSquare(i + 1, 2).setPiece(new Pound(true));
             getSquare(i + 1, 7).setPiece(new Pound(false));
@@ -119,6 +135,30 @@ public class ChessBoard extends RelativeLayout {
             }
         }
 
+        return false;
+    }
+
+    public boolean checkMate(boolean toWhite) {
+        if (checkCheck(toWhite)) {
+            for (int i = 1; i < 9; i++) {
+                for (int j = 1; j < 9; j++) {
+                    ChessSquare square1 = getSquare(i, j);
+                    ChessPiece piece = square1.piece;
+                    if (piece != null
+                            && piece.isWhite() == toWhite) {
+                        for (int k = 1; k < 9; k++) {
+                            for (int l = 1; l < 9; l++) {
+                                ChessSquare square2 = getSquare(k, l);
+                                if (checkMove(square1, square2)) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
         return false;
     }
 }
